@@ -26,19 +26,19 @@ export function activate(context: vscode.ExtensionContext) {
  * @param context
  */
 function registerReverse(context: vscode.ExtensionContext) {
-  let disposable = vscode.commands.registerCommand("extension.reverse", () => {
-    let editor = vscode.window.activeTextEditor;
+  const disposable = vscode.commands.registerCommand("extension.reverse", () => {
+    const editor = vscode.window.activeTextEditor;
 
-    if (!editor) {
+    if (editor === undefined) {
       return;
     }
 
-    let reversed = editor?.selections
-      .map((selection) => editor?.document.getText(selection))
+    const reversed = editor.selections
+      .map((selection) => editor.document.getText(selection))
       .reverse();
 
-    editor?.edit((builder) => {
-      editor?.selections.forEach((selection, index) => {
+    editor.edit((builder) => {
+      editor.selections.forEach((selection, index) => {
         builder.replace(selection, "" + reversed[index]);
       });
     });
@@ -52,10 +52,10 @@ function registerReverse(context: vscode.ExtensionContext) {
  * @param context
  */
 function registerJoin(context: vscode.ExtensionContext) {
-  let disposable = vscode.commands.registerCommand(
+  const disposable = vscode.commands.registerCommand(
     "extension.join",
     async () => {
-      let editor = vscode.window.activeTextEditor;
+      const editor = vscode.window.activeTextEditor;
 
       if (!editor) {
         return;
@@ -63,14 +63,14 @@ function registerJoin(context: vscode.ExtensionContext) {
 
       const delimiter = await vscode.window.showInputBox();
 
-      let selections = editor?.selections.map((selection) =>
-        editor?.document.getText(selection)
+      const selections = editor.selections.map((selection) =>
+        editor.document.getText(selection)
       );
 
-      let joined = selections.join(delimiter);
+      const joined = selections.join(delimiter);
 
-      editor?.edit((builder) => {
-        editor?.selections.forEach((selection, index) => {
+      editor.edit((builder) => {
+        editor.selections.forEach((selection, index) => {
           builder.replace(selection, index === 0 ? "" + joined : "");
         });
       });
@@ -85,20 +85,20 @@ function registerJoin(context: vscode.ExtensionContext) {
  * @param context
  */
 function registerUniq(context: vscode.ExtensionContext) {
-  let disposable = vscode.commands.registerCommand("extension.uniq", () => {
-    let editor = vscode.window.activeTextEditor;
+  const disposable = vscode.commands.registerCommand("extension.uniq", () => {
+    const editor = vscode.window.activeTextEditor;
 
     if (!editor) {
       return;
     }
 
-    let selections = editor?.selections.map((selection) =>
-      editor?.document.getText(selection)
+    const selections = editor.selections.map((selection) =>
+      editor.document.getText(selection)
     );
-    let uniques = Array.from(new Set(selections));
+    const uniques = Array.from(new Set(selections));
 
-    editor?.edit((builder) => {
-      editor?.selections.forEach((selection, index) => {
+    editor.edit((builder) => {
+      editor.selections.forEach((selection, index) => {
         builder.replace(selection, "" + (uniques[index] || ""));
       });
     });
@@ -112,15 +112,19 @@ function registerUniq(context: vscode.ExtensionContext) {
  * @param context
  */
 function registerCapitalize(context: vscode.ExtensionContext) {
-  let disposable = vscode.commands.registerCommand(
+  const disposable = vscode.commands.registerCommand(
     "extension.capitalize",
     () => {
-      let editor = vscode.window.activeTextEditor;
+      const editor = vscode.window.activeTextEditor;
 
-      editor?.selections.forEach(async (selection) => {
-        let content = editor?.document.getText(selection);
-        const result = content?.trim().split(/\s+/).map(capitalize).join(" ");
-        editor?.edit((builder) => {
+      if (editor === undefined) {
+        return;
+      }
+
+      editor.selections.forEach(async (selection) => {
+        const content = editor.document.getText(selection);
+        const result = content.trim().split(/\s+/).map(capitalize).join(" ");
+        editor.edit((builder) => {
           builder.replace(selection, "" + result);
         });
       });
@@ -137,10 +141,10 @@ function registerCapitalize(context: vscode.ExtensionContext) {
 function registerTranslate(context: vscode.ExtensionContext) {
   let out: vscode.OutputChannel;
 
-  let disposable = vscode.commands.registerCommand(
+  const disposable = vscode.commands.registerCommand(
     "extension.trans",
     async () => {
-      let target = "中文"; //await vscode.window.showQuickPick(Object.values(translate.Translate.Lang));
+      const target = "中文"; //await vscode.window.showQuickPick(Object.values(translate.Translate.Lang));
 
       const editor = vscode.window.activeTextEditor;
 
@@ -159,7 +163,7 @@ function registerTranslate(context: vscode.ExtensionContext) {
         editor.selections.map((selection) => editor.document.getText(selection))
       );
 
-      let translations = await Promise.all(
+      const translations = await Promise.all(
         words.map(async (word) => {
           return await worker.translate(word, target);
         })
@@ -191,19 +195,19 @@ function unique(xs: any[]) {
 }
 
 function registerSort(context: vscode.ExtensionContext) {
-  let disposable = vscode.commands.registerCommand("extension.sort", () => {
-    let editor = vscode.window.activeTextEditor;
+  const disposable = vscode.commands.registerCommand("extension.sort", () => {
+    const editor = vscode.window.activeTextEditor;
 
     if (!editor) {
       return;
     }
 
-    let sorted = editor?.selections
-      .map((selection) => editor?.document.getText(selection))
+    const sorted = editor.selections
+      .map((selection) => editor.document.getText(selection))
       .sort();
 
-    editor?.edit((builder) => {
-      editor?.selections.forEach((selection, index) => {
+    editor.edit((builder) => {
+      editor.selections.forEach((selection, index) => {
         builder.replace(selection, "" + sorted[index]);
       });
     });
@@ -213,20 +217,20 @@ function registerSort(context: vscode.ExtensionContext) {
 }
 
 function registerShuffle(context: vscode.ExtensionContext) {
-  let disposable = vscode.commands.registerCommand("extension.shuffle", () => {
-    let editor = vscode.window.activeTextEditor;
+  const disposable = vscode.commands.registerCommand("extension.shuffle", () => {
+    const editor = vscode.window.activeTextEditor;
 
     if (!editor) {
       return;
     }
 
-    let elements = editor?.selections.map((selection) =>
-      editor?.document.getText(selection)
+    const elements = editor.selections.map((selection) =>
+      editor.document.getText(selection)
     );
-    let shuffled = shuffle(elements);
+    const shuffled = shuffle(elements);
 
-    editor?.edit((builder) => {
-      editor?.selections.forEach((selection, index) => {
+    editor.edit((builder) => {
+      editor.selections.forEach((selection, index) => {
         builder.replace(selection, "" + shuffled[index]);
       });
     });
@@ -236,7 +240,7 @@ function registerShuffle(context: vscode.ExtensionContext) {
 }
 
 function registerMap(context: vscode.ExtensionContext) {
-  let disposable = vscode.commands.registerCommand(
+  const disposable = vscode.commands.registerCommand(
     "extension.map",
     async () => {
       const transformer = await vscode.window.showInputBox();
@@ -247,17 +251,17 @@ function registerMap(context: vscode.ExtensionContext) {
 
       const functor = new Function("$", `return ${transformer}`);
 
-      let editor = vscode.window.activeTextEditor;
+      const editor = vscode.window.activeTextEditor;
 
-      if (!editor) {
+      if (editor === undefined) {
         return;
       }
 
-      let elements: any;
+      const elements: any;
 
       try {
         elements = editor.selections
-          .map((selection) => editor?.document.getText(selection))
+          .map((selection) => editor.document.getText(selection))
           .map((original) => {
             try {
               return functor(original);
@@ -270,8 +274,8 @@ function registerMap(context: vscode.ExtensionContext) {
         return;
       }
 
-      editor?.edit((builder) => {
-        editor?.selections.forEach((selection, index) => {
+      editor.edit((builder) => {
+        editor.selections.forEach((selection, index) => {
           builder.replace(selection, "" + elements[index]);
         });
       });

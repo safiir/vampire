@@ -249,22 +249,24 @@ function registerMap(context: vscode.ExtensionContext) {
         return;
       }
 
-      const functor = new Function("$", `return ${transformer}`);
-
       const editor = vscode.window.activeTextEditor;
 
       if (editor === undefined) {
         return;
       }
 
-      const elements: any;
+      let elements: any;
 
       try {
         elements = editor.selections
           .map((selection) => editor.document.getText(selection))
           .map((original) => {
+            const partials = original.split(/\s+/);
+            const args = partials.map((partial, index) => `$${index + 1}`);
+            const functor = new Function("$", "_", ...args, `return ${transformer}`);
+            
             try {
-              return functor(original);
+              return functor(original, partials, ...partials);
             } catch (error) {
               vscode.window.showErrorMessage(error.message);
               throw new Error("transform error");

@@ -15,6 +15,7 @@
 		"onCommand:extension.uniq",
 		"onCommand:extension.join",
 		"onCommand:extension.trans",
+		"onCommand:extension.filter",
 		"onCommand:extension.shuffle",
 		"onCommand:extension.reverse",
 		"onCommand:extension.capitalize"
@@ -53,6 +54,10 @@
 			{
 				"command": "extension.shuffle",
 				"title": "Shuffle selections"
+			},
+			{
+				"command": "extension.filter",
+				"title": "Filtering selections"
 			}
 		],
 		"keybindings": [
@@ -103,6 +108,12 @@
 				"key": "Ctrl+m",
 				"mac": "Ctrl+m",
 				"when": "editorTextFocus"
+			},
+			{
+				"command": "extension.filter",
+				"key": "Ctrl+Shift+F",
+				"mac": "Ctrl+Shift+F",
+				"when": "editorTextFocus"
 			}
 		],
 		"configuration": {
@@ -151,6 +162,7 @@
 	},
 	"dependencies": {
 		"colors": "^1.4.0",
+		"ramda": "^0.27.1",
 		"table": "^6.7.1"
 	}
 }

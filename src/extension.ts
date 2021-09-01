@@ -1,4 +1,6 @@
 import * as vscode from "vscode";
+const R = require('ramda');
+
 const translate = require("./translate");
 
 export function activate(context: vscode.ExtensionContext) {
@@ -11,6 +13,8 @@ export function activate(context: vscode.ExtensionContext) {
   registerSort(context);
 
   registerJoin(context);
+
+  registerFilter(context);
 
   registerShuffle(context);
 
@@ -240,51 +244,71 @@ function registerShuffle(context: vscode.ExtensionContext) {
 }
 
 function registerMap(context: vscode.ExtensionContext) {
-  const disposable = vscode.commands.registerCommand(
-    "extension.map",
-    async () => {
-      const transformer = await vscode.window.showInputBox();
-
-      if (!transformer) {
-        return;
-      }
-
-      const editor = vscode.window.activeTextEditor;
-
-      if (editor === undefined) {
-        return;
-      }
-
-      let elements: any;
-
-      try {
-        elements = editor.selections
-          .map((selection) => editor.document.getText(selection))
-          .map((original) => {
-            const partials = original.split(/\s+/);
-            const args = partials.map((partial, index) => `$${index + 1}`);
-            const functor = new Function("$", "_", ...args, `return ${transformer}`);
-            
-            try {
-              return functor(original, partials, ...partials);
-            } catch (error) {
-              vscode.window.showErrorMessage(error.message);
-              throw new Error("transform error");
-            }
-          });
-      } catch (error) {
-        return;
-      }
-
-      editor.edit((builder) => {
-        editor.selections.forEach((selection, index) => {
-          builder.replace(selection, "" + elements[index]);
-        });
-      });
-    }
-  );
+  const disposable = vscode.commands.registerCommand("extension.map", input("map"));
 
   context.subscriptions.push(disposable);
+}
+
+function registerFilter(context: vscode.ExtensionContext) {
+  const disposable = vscode.commands.registerCommand("extension.filter", input("filter"));
+
+  context.subscriptions.push(disposable);
+}
+
+function input(action: String) {
+  return async () => {
+    const transformer = await vscode.window.showInputBox();
+
+    if (!transformer) {
+      return;
+    }
+
+    const editor = vscode.window.activeTextEditor;
+
+    if (editor === undefined) {
+      return;
+    }
+
+    let elements: any;
+
+    try {
+      elements = editor.selections
+        .map((selection) => editor.document.getText(selection))
+        .map((original) => {
+          const partials = original.split(/\s+/);
+          const args = partials.map((partial, index) => `$${index + 1}`);
+          const functor = new Function("$", "_", ...args, 'R', `return ${transformer}`);
+
+          try {
+            return functor(original, partials, R, ...partials);
+          } catch (error) {
+            vscode.window.showErrorMessage(error.message);
+            throw new Error("transform error");
+          }
+        });
+    } catch (error) {
+      return;
+    }
+
+    editor.edit((builder) => {
+      editor.selections.forEach((selection, index) => {
+        switch (action) {
+          case "map":
+            builder.replace(selection, "" + elements[index]);
+            break;
+
+          case "filter":
+            if (!elements[index]) {
+              builder.replace(selection, "");
+            }
+            break;
+
+          default:
+            break;
+        }
+      });
+    });
+  };
 }
 
 /**

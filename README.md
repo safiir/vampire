@@ -4,16 +4,24 @@ vampire is a utility extension plugin based on vscode used to support multiple b
 
 ## Features
 
-|||
+|shortcut|explanation|
 |-|-|
-|`Ctrl s`|sorting|
-|`Ctrl t`|translating|
-|`Ctrl c`|capitalizing|
-|`Ctrl u`|uniquizing|
-|`Ctrl k`|reversing|
-|`Ctrl m`|shuffling|
-|`Ctrl + Shift + j`|joining|
-|`Ctrl + z`|transform via arbitrary javascript expression eg. `$.toLowerCase()`|
+|`Ctrl + S`|sorting|
+|`Ctrl + T`|translating|
+|`Ctrl + C`|capitalizing|
+|`Ctrl + U`|uniquizing|
+|`Ctrl + K`|reversing|
+|`Ctrl + Shift + S`|shuffling|
+|`Ctrl + Shift + J`|joining|
+|`Ctrl + M`|transform via arbitrary javascript expression eg. `$.toLowerCase()`|
+
+***special predefined variable***
+|variable|explanation|
+|-|-|
+|`$`|current line|
+|`_`|a list splitted from blank characters|
+|`$n`|n-th word splitted from blank characters|
+|`R`|[Ramda.js library](https://ramda.cn/)|
 ## Extension Settings
 
 * `vampire.translate.youdao.appKey`: youdao app key

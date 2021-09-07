@@ -25,7 +25,7 @@
 		"commands": [
 			{
 				"command": "extension.map",
-				"title": "Make a transformation to each element in selections"
+				"title": "Take a transformation to each element in selections"
 			},
 			{
 				"command": "extension.trans",
@@ -63,50 +63,50 @@
 		"keybindings": [
 			{
 				"command": "extension.map",
-				"key": "Ctrl+z",
-				"mac": "Ctrl+z",
+				"key": "Ctrl+M",
+				"mac": "Ctrl+M",
 				"when": "editorTextFocus"
 			},
 			{
 				"command": "extension.trans",
-				"key": "Ctrl+t",
-				"mac": "Ctrl+t",
+				"key": "Ctrl+T",
+				"mac": "Ctrl+T",
 				"when": "editorTextFocus"
 			},
 			{
 				"command": "extension.capitalize",
-				"key": "Ctrl+c",
-				"mac": "Ctrl+c",
+				"key": "Ctrl+C",
+				"mac": "Ctrl+C",
 				"when": "editorTextFocus"
 			},
 			{
 				"command": "extension.sort",
-				"key": "Ctrl+s",
-				"mac": "Ctrl+s",
+				"key": "Ctrl+S",
+				"mac": "Ctrl+S",
 				"when": "editorTextFocus"
 			},
 			{
 				"command": "extension.uniq",
-				"key": "Ctrl+u",
-				"mac": "Ctrl+u",
+				"key": "Ctrl+U",
+				"mac": "Ctrl+U",
 				"when": "editorTextFocus"
 			},
 			{
 				"command": "extension.join",
-				"key": "Ctrl+Shift+j",
-				"mac": "Ctrl+Shift+j",
+				"key": "Ctrl+Shift+J",
+				"mac": "Ctrl+Shift+J",
 				"when": "editorTextFocus"
 			},
 			{
 				"command": "extension.reverse",
-				"key": "Ctrl+k",
-				"mac": "Ctrl+k",
+				"key": "Ctrl+K",
+				"mac": "Ctrl+K",
 				"when": "editorTextFocus"
 			},
 			{
 				"command": "extension.shuffle",
-				"key": "Ctrl+m",
-				"mac": "Ctrl+m",
+				"key": "Ctrl+Shift+S",
+				"mac": "Ctrl+Shift+S",
 				"when": "editorTextFocus"
 			},
 			{
@@ -122,12 +122,12 @@
 			"properties": {
 				"vampire.translate.youdao.appKey": {
 					"type": "string",
-					"default": "",
+					"default": "339e1f2c5b22829d",
 					"description": "有道翻译appKey"
 				},
 				"vampire.translate.youdao.appSecret": {
 					"type": "string",
-					"default": "",
+					"default": "QIc3TH0YkR1RXJpmEHjkKvLZeBTkmbQb",
 					"description": "有道翻译appSecret"
 				}
 			}

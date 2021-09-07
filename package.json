@@ -1,8 +1,9 @@
 {
 	"name": "vampire",
 	"displayName": "vampire",
-	"description": "",
+	"description": "An utility extension plugin",
 	"version": "0.0.1",
+	"publisher": "bam-boo",
 	"engines": {
 		"vscode": "^1.59.0"
 	},

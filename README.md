@@ -16,12 +16,14 @@ vampire is a utility extension plugin based on vscode used to support multiple b
 |`Ctrl + M`|transform via arbitrary javascript expression eg. `$.toLowerCase()`|
 
 ***special predefined variable***
+
 |variable|explanation|
 |-|-|
 |`$`|current line|
 |`_`|a list splitted from blank characters|
 |`$n`|n-th word splitted from blank characters|
 |`R`|[Ramda.js library](https://ramda.cn/)|
+
 ## Extension Settings
 
 * `vampire.translate.youdao.appKey`: youdao app key

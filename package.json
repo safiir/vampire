@@ -10,6 +10,10 @@
 	"categories": [
 		"Other"
 	],
+	"repository": {
+    "type": "git",
+    "url": "https://github.com/safiir/vampire.git"
+  },
 	"activationEvents": [
 		"onCommand:extension.map",
 		"onCommand:extension.sort",

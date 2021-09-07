@@ -2,9 +2,9 @@
 	"name": "vampire",
 	"displayName": "vampire",
 	"description": "An utility extension plugin",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"publisher": "bam-boo",
-	"icon": "./logo.png",
+	"icon": "logo.png",
 	"engines": {
 		"vscode": "^1.59.0"
 	},

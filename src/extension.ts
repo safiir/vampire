@@ -277,7 +277,7 @@ function input(action: String) {
         .map((original) => {
           const partials = original.split(/\s+/);
           const args = partials.map((partial, index) => `$${index + 1}`);
-          const functor = new Function("$", "_", ...args, 'R', `return ${transformer}`);
+          const functor = new Function("$", "_", 'R', ...args, `return ${transformer}`);
 
           try {
             return functor(original, partials, R, ...partials);
